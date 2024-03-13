@@ -310,29 +310,6 @@ class AuthController extends Controller
      * @param string $token The token used for email verification.
      * @return \Illuminate\Http\Response The response indicating success or failure.
      */
-    public function verifyEmail($token)
-    {
-        try {
-            // ? Attempt to find the user by the provided token
-            $user = User::where('remember_token', $token)->firstOrFail();
-
-            // * Update user's information to mark email as verified
-            $date_time = now()->toDateTimeString();
-            $user->remember_token = '';
-            $user->is_email_verified = '1';
-            $user->email_verified_at = $date_time;
-            $user->save();
-
-            // * Prepare data for the view
-            $data = ['url' => route('verify.email', ['token' => $token])];
-
-            // * Render the email verification view
-            return view('verifyEmail', compact('data'));
-        } catch (\Exception $e) {
-            // ! Handle exceptions
-            return response()->view('404', [], 404); // todo Render a 404 view for user not found
-        }
-    }
 
     /**
      * ! Initiates the password reset process for a user.
@@ -351,7 +328,7 @@ class AuthController extends Controller
             if (count($user) > 0) {
                 // ! Generate a random token for password reset
                 $token = Str::random(40);
-
+                dsfdffdggfgfdfgdsfgsgsdgdsg;
                 // ? Construct the password reset URL
                 $domain = Url::to('/');
                 $url = $domain . '/forget-password?token=' . $token;
